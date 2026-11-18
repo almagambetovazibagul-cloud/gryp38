@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Групповая эко-миссия: Периодические дроби — 6 класс</title>
+  <style>
+    :root {
+      --forest: #14301f; --moss: #2f7d45; --leaf: #58b05a; --mint: #e6f1e4;
+      --kraft: #efe4c8; --clay: #b5653a; --water: #4fb3e8; --sun: #f2b632;
+      --accent: #2f7d45; --accent-soft: #e6f1e4; --accent-border: #58b05a;
+      --honesty: #8e6bbf; --diligence: #d97706; --cooperation: #0891b2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: "Nunito", "Trebuchet MS", system-ui, sans-serif;
+      background-color: var(--kraft);
+      background-image:
+        radial-gradient(circle at 12% 14%, rgba(88, 176, 90, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 88% 82%, rgba(79, 179, 232, 0.1) 0%, transparent 45%),
+        radial-gradient(#14301f0d 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 14px 14px;
+      color: var(--forest); line-height: 1.5; padding: 20px 14px 56px;
+      position: relative; overflow-x: hidden;
+      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    }
+
+    .ambient-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .ambient-mote { position: absolute; border-radius: 50%; opacity: 0.32; animation: floatMote 9s ease-in-out infinite; }
+    @keyframes floatMote {
+      0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+      50% { transform: translateY(-18px) translateX(10px) rotate(18deg); }
+    }
+
+    .container { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+    .card {
+      background: linear-gradient(180deg, #fffef9 0%, #fcf9ee 100%);
+      border: 2px solid var(--accent-border); border-radius: 24px 6px 24px 6px;
+      box-shadow: 0 6px 0 #2f7d4522, 0 10px 20px rgba(20, 48, 31, 0.05);
+      padding: 24px 26px; margin-bottom: 18px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    
+    /* Шапка */
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent-soft); color: var(--accent);
+      border: 1.5px solid var(--accent-border); border-radius: 16px 4px 16px 4px; padding: 4px 12px;
+      font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+      box-shadow: 0 2px 0 rgba(20, 48, 31, 0.1);
+      transition: all 0.25s ease;
+    }
+    h1 { font-size: 1.75rem; font-weight: 800; color: var(--forest); line-height: 1.2; margin-bottom: 8px; }
+    
+    /* Подзаголовок миссии */
+    .subtitle-mission { 
+      font-size: 1rem; font-weight: 800; color: var(--accent); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .subtitle { font-size: 0.95rem; opacity: 0.88; margin-bottom: 14px; }
+    
+    .group-inputs { display: flex; flex-direction: column; gap: 10px; }
+    .role-input-wrap { position: relative; display: flex; align-items: center; }
+    .role-badge {
+      position: absolute; right: 12px; font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 8px;
+      background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border);
+      pointer-events: none; transition: all 0.25s ease;
+    }
+    .field-input {
+      background: var(--accent-soft); border: 2px solid var(--accent-border); border-radius: 14px 4px 14px 4px;
+      padding: 12px 14px; min-height: 46px; font-family: inherit; font-size: 16px;
+      font-weight: 700; color: var(--forest); outline: none; width: 100%;
+      transition: all 0.2s ease;
+    }
+    .field-input.with-role { padding-right: 92px; }
+    .field-input:focus { background: #fffdf6; border-color: var(--accent); box-shadow: 0 0 0 3px #58b05a33; }
+
+    /* Остров в шапке */
+    .art-slot {
+      background: linear-gradient(180deg, #dcf1fb 0%, #e6f4e4 78%, #d7ebd5 100%);
+      border: 2px dashed var(--accent-border); border-radius: 24px 6px 24px 6px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      min-height: 160px; padding: 10px; position: relative;
+      box-shadow: inset 0 2px 10px rgba(20, 48, 31, 0.08);
+      transition: border-color 0.3s ease;
+    }
+
+    /* Плашка миссии с ценностями */
+    .mission-banner {
+      background: linear-gradient(90deg, #e3f4fc 0%, #fcf3db 100%);
+      border: 2px solid #b3e5fc; border-radius: 16px; padding: 16px 20px;
+      margin-bottom: 18px; box-shadow: 0 4px 12px rgba(29, 116, 168, 0.08);
+    }
+    .mission-head { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+    .mission-icon { font-size: 2rem; flex-shrink: 0; }
+    .mission-text h3 { font-size: 1.05rem; font-weight: 800; color: #0277bd; margin-bottom: 4px; }
+    .mission-text p { font-size: 0.9rem; color: #2D4434; line-height: 1.4; }
+    .values-map { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .value-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fffdf6; border: 1.5px solid var(--moss); border-radius: 12px 3px 12px 3px;
+      padding: 4px 10px; font-size: 0.78rem; font-weight: 800; color: var(--forest);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .value-chip.active { background: var(--mint); transform: translateY(-1px); }
+
+    /* Панель ресурсов */
+    .hud-bar {
+      display: flex; flex-direction: column; gap: 10px;
+      background: linear-gradient(135deg, var(--accent-soft) 0%, #e2efe0 100%);
+      border-color: var(--accent); padding: 16px 20px; margin-bottom: 18px;
+    }
+    .hud-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .resources { display: flex; gap: 10px; }
+    .res-pill {
+      display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px;
+      border-radius: 16px 4px 16px 4px; font-weight: 800; font-size: 0.95rem;
+      background: #fffdf6; border: 2px solid var(--forest); box-shadow: 0 3px 0 #14301f22;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .res-pill.pulse { transform: scale(1.08); }
+    .res-water { border-color: var(--water); } .res-sun { border-color: var(--sun); }
+    .dot-indicator { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+    /* Сквозные ценности в HUD */
+    .values-track {
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+      padding-top: 10px; border-top: 1.5px dashed var(--leaf);
+    }
+    .value-track-item {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 11px; border-radius: 14px 4px 14px 4px;
+      background: #fffdf6; border: 1.5px dashed #b0b8a8;
+      font-size: 0.8rem; font-weight: 800; color: #8a9184;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .value-track-item.unlocked {
+      border-style: solid; border-color: var(--moss); color: var(--forest);
+      background: var(--mint); box-shadow: 0 3px 0 #2f7d4533; transform: translateY(-2px);
+    }
+    .value-track-item.honesty.unlocked { border-color: var(--honesty); background: #f3eefb; color: #5b3f8a; }
+    .value-track-item.diligence.unlocked { border-color: var(--diligence); background: #fef3e2; color: #92400e; }
+    .value-track-item.cooperation.unlocked { border-color: var(--cooperation); background: #e0f7fa; color: #075985; }
+    .value-track-item .vt-label { font-size: 0.7rem; opacity: 0.75; font-weight: 700; }
+
+    .leaf-steps { display: flex; gap: 8px; align-items: center; }
+    .leaf-step {
+      width: 36px; height: 36px; border-radius: 14px 4px 14px 4px; background: #fffdf6;
+      border: 2px solid var(--accent-border); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.92rem; color: var(--accent);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .leaf-step.done {
+      background: var(--accent); border-color: var(--forest); color: #fffdf6;
+      transform: translateY(-2px) scale(1.06); box-shadow: 0 3px 0 rgba(20, 48, 31, 0.25);
+    }
+
+    /* Карточки заданий */
+    .task-card { margin-bottom: 18px; overflow: hidden; padding: 0; }
+    .task-card.solved {
+      border-color: var(--moss);
+      background: linear-gradient(180deg, #ffffff 0%, #f3faf2 100%);
+    }
+    .story-banner { position: relative; width: 100%; height: 140px; border-bottom: 2px solid var(--accent-border); background: #EEF6EE; overflow: hidden; }
+    .story-banner svg { width: 100%; height: 100%; display: block; }
+
+    .card-body { padding: 20px 24px; }
+    .sector-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .sector-text { font-size: 1rem; color: #2D4434; margin-bottom: 14px; line-height: 1.45; }
+    .value-why {
+      font-size: 0.82rem; font-style: italic; color: var(--moss);
+      background: #f3faf2; border-left: 3px solid var(--leaf);
+      padding: 6px 10px; border-radius: 0 8px 8px 0; margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    
+    .math-banner {
+      background: linear-gradient(135deg, #f4f9f2 0%, #ebf5e8 100%);
+      border: 2px dashed var(--accent); border-radius: 16px 4px 16px 4px;
+      padding: 13px 16px; text-align: center; font-size: 1.35rem; font-weight: 800;
+      color: var(--forest); margin-bottom: 16px;
+      box-shadow: inset 0 2px 6px rgba(47, 125, 69, 0.06);
+    }
+
+    /* Дроби и поля ввода */
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1.05; font-weight: 800; margin: 0 2px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 4px 2px; }
+    .frac .den { padding: 2px 4px 0; }
+
+    .controls-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .answer-box {
+      width: 160px; min-height: 46px; padding: 10px 12px; font-family: inherit;
+      font-size: 18px; font-weight: 800; color: var(--forest); background: #fffdf6;
+      border: 2px solid var(--accent); border-radius: 16px 4px 16px 4px; outline: none; text-align: center;
+      transition: all 0.2s ease;
+    }
+    .answer-box:focus { box-shadow: 0 0 0 3px #58b05a44; background: #ffffff; }
+
+    /* Кнопка подсказки */
+    .btn-hint {
+      height: 46px; padding: 0 16px; border-radius: 16px 4px 16px 4px;
+      border: 2px solid #d6c9ae; background: #fbf6ea; color: #7a5c28;
+      font-size: 0.95rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 3px 0 #d6c9ae55; transition: all 0.15s ease;
+    }
+    .btn-hint:hover { background: #f5ebd4; }
+    .btn-hint:active { transform: translateY(2px); box-shadow: none; }
+    .btn-hint.used { border-color: var(--clay); background: #fdf3eb; color: #8c4520; }
+    .hint-box {
+      display: none; margin-top: 12px; background: #FBF7EC; border-left: 4px solid #D4A147;
+      border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; color: #5C451D; line-height: 1.4;
+      animation: fadeSlide 0.25s ease;
+    }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .hint-box.open { display: block; }
+    .hint-warning { font-size: 0.8rem; color: var(--clay); font-weight: 700; margin-top: 4px; }
+
+    /* Блок сравнения */
+    .compare-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .compare-row {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px;
+      background: #fffdf6; border: 2px solid #C6D8C5; border-radius: 16px; padding: 10px 14px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .compare-row.chosen { border-color: var(--accent-border); background: #f6fbf5; }
+    .cmp-expr { font-size: 1.1rem; font-weight: 800; text-align: center; }
+    .sign-picker { display: inline-flex; gap: 6px; background: var(--accent-soft); padding: 4px; border-radius: 12px; }
+    .sign-btn {
+      width: 36px; height: 36px; border: none; border-radius: 8px; background: transparent;
+      color: var(--forest); font-size: 1.1rem; font-weight: 900; cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sign-btn:hover { background: rgba(255,255,255,0.65); }
+    .sign-btn.selected {
+      background: var(--accent); color: #fffdf6;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2); transform: scale(1.06);
+    }
+
+    /* Кнопка отправки */
+    .btn-submit {
+      width: 100%; padding: 16px; font-size: 1.1rem; font-weight: 800; color: #fffdf6;
+      background: linear-gradient(180deg, #378d4f 0%, var(--moss) 100%);
+      border: 2px solid var(--forest); border-radius: 20px 5px 20px 5px;
+      cursor: pointer; box-shadow: 0 4px 0 var(--forest); transition: 0.12s;
+      margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
+      position: relative; overflow: hidden;
+    }
+    .btn-submit::after {
+      content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transform: skewX(-20deg); animation: btnShimmer 4s infinite;
+    }
+    @keyframes btnShimmer {
+      0%, 75% { left: -60%; }
+      100% { left: 130%; }
+    }
+    .btn-submit:active { transform: translateY(3px); box-shadow: none; }
+    .btn-submit:disabled { background: #94a3b8; border-color: #64748b; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-submit:disabled::after { display: none; }
+
+    /* Рефлексия */
+    .reflection-card { text-align: center; padding: 36px 24px; }
+    .reflection-card h1 { color: var(--moss); font-size: 2rem; margin-bottom: 8px; }
+    .reflection-values { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 18px 0; }
+    .reflection-values .value-chip { font-size: 0.9rem; padding: 8px 14px; }
+    .reflection-question {
+      background: var(--mint); border: 2px dashed var(--moss); border-radius: 16px 4px 16px 4px;
+      padding: 14px 18px; margin-top: 18px; font-size: 0.95rem; color: var(--forest);
+    }
+    .reflection-emoji { font-size: 2.2rem; margin-top: 18px; }
+
+    /* Анимации природы */
+    .park-stage { opacity: 0.24; transition: opacity 0.65s ease; }
+    .park-stage.active { opacity: 1; }
+    
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes islandFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @keyframes waterDash { to { stroke-dashoffset: -16; } }
+    @keyframes fireflyGlow { 0%, 100% { opacity: 0.25; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.25); } }
+    @keyframes butterflyFlutter { 0%, 100% { transform: scaleX(1) translateY(0); } 50% { transform: scaleX(0.75) translateY(-2px); } }
+    @keyframes beaverBob { 0%, 100% { transform: translate(65px, 48px); } 50% { transform: translate(65px, 46px); } }
+
+    .spin-blades { animation: spin 4s linear infinite; }
+    .spin-anemometer { animation: spin 2.5s linear infinite; }
+    .island-hover { animation: islandFloat 4.5s ease-in-out infinite; }
+    .waterfall-line { stroke-dasharray: 5 3; animation: waterDash 1.1s linear infinite; }
+    .firefly { transform-origin: center; animation: fireflyGlow 2.4s ease-in-out infinite; }
+    .butterfly-anim { transform-origin: 112px 40px; animation: butterflyFlutter 1.3s ease-in-out infinite; }
+    .beaver-anim { animation: beaverBob 2.6s ease-in-out infinite; }
+
+    @media (max-width: 640px) {
+      body { padding: 12px 10px 44px; } .card { padding: 18px 16px; margin-bottom: 14px; }
+      h1 { font-size: 1.45rem; } .hero-grid { grid-template-columns: 1fr; gap: 14px; }
+      .story-banner { height: 120px; }
+      .card-body { padding: 16px; }
+      .answer-box { width: 100%; max-width: none; }
+      .mission-head { flex-direction: column; text-align: center; gap: 8px; }
+      .values-track { gap: 6px; }
+      .value-track-item { font-size: 0.72rem; padding: 4px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-bg" aria-hidden="true">
+    <span class="ambient-mote" style="width:10px;height:10px;background:#58b05a;top:12%;left:8%;animation-delay:0s;"></span>
+    <span class="ambient-mote" style="width:8px;height:8px;background:#f2b632;top:34%;right:7%;animation-delay:2s;"></span>
+    <span class="ambient-mote" style="width:12px;height:12px;background:#4fb3e8;top:62%;left:6%;animation-delay:4s;"></span>
+    <span class="ambient-mote" style="width:9px;height:9px;background:#58b05a;top:82%;right:9%;animation-delay:1.5s;"></span>
+  </div>
+
+  <div class="container">
+    <header class="card">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">🛡️ Групповая миссия • 6 «Б» класс</span>
+          <h1>Эко-штаб: спасение парка</h1>
+          <div class="subtitle-mission">🇰🇿 Миссия «Адал Азамат»</div>
+          <p class="subtitle">Работайте всей командой. Распределите роли: кто-то считает, кто-то проверяет, кто-то записывает.</p>
+          
+          <div class="group-inputs">
+            <!-- Только имя капитана -->
+            <div class="role-input-wrap">
+              <input type="text" class="field-input with-role" id="captainName" placeholder="Имя капитана (Петя)" required>
+              <span class="role-badge">Капитан</span>
+            </div>
+            <div class="role-input-wrap" style="width: 100%;">
+              <input type="text" class="field-input with-role" id="teamMembers" placeholder="Остальные участники (через запятую)">
+              <span class="role-badge">Команда</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-slot">
+          <svg class="island-hover" viewBox="0 0 190 165" style="width: 100%; max-width: 175px; height: auto;">
+            <defs>
+              <radialGradient id="sunHalo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFF099"/><stop offset="60%" stop-color="#F6B93B"/><stop offset="100%" stop-color="#F6B93B" stop-opacity="0"/></radialGradient>
+              <linearGradient id="earthRock" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9A714C"/><stop offset="55%" stop-color="#765233"/><stop offset="100%" stop-color="#4D331E"/></linearGradient>
+              <linearGradient id="turfTop" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#9CD47E"/><stop offset="50%" stop-color="#78BC63"/><stop offset="100%" stop-color="#589A4B"/></linearGradient>
+              <linearGradient id="lagoonWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B8ECFF"/><stop offset="55%" stop-color="#4FB3E8"/><stop offset="100%" stop-color="#287AB0"/></linearGradient>
+              <radialGradient id="oakLeaf" cx="35%" cy="28%" r="72%"><stop offset="0%" stop-color="#96D674"/><stop offset="58%" stop-color="#4B8E47"/><stop offset="100%" stop-color="#2A5B2E"/></radialGradient>
+            </defs>
+            <g opacity="0.55" fill="#FFFDF8"><ellipse cx="32" cy="24" rx="14" ry="5"/><ellipse cx="42" cy="22" rx="10" ry="4.5"/><ellipse cx="155" cy="48" rx="13" ry="4.5"/></g>
+            <g id="park-sun" class="park-stage"><circle cx="146" cy="26" r="24" fill="url(#sunHalo)"/><circle cx="146" cy="26" r="11" fill="#FFD147"/><g stroke="#FFE885" stroke-width="1.8" stroke-linecap="round"><line x1="146" y1="8" x2="146" y2="11"/><line x1="146" y1="41" x2="146" y2="44"/><line x1="128" y1="26" x2="131" y2="26"/><line x1="161" y1="26" x2="164" y2="26"/><line x1="133" y1="13" x2="135" y2="15"/><line x1="157" y1="37" x2="159" y2="39"/></g></g>
+            <path d="M22,94 L168,94 L148,124 L126,136 L104,152 L82,138 L52,130 L32,112 Z" fill="url(#earthRock)"/>
+            <path d="M48,128 Q45,142 40,148 M92,144 Q94,154 90,160 M122,136 Q126,146 123,152" stroke="#5E3E24" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <polygon points="64,114 69,106 74,114 69,122" fill="#7CE0F9" opacity="0.85"/><polygon points="118,112 122,106 126,112 122,118" fill="#FFE066" opacity="0.85"/>
+            <path d="M16,94 Q55,74 172,88 Q170,102 140,104 Q85,108 16,94 Z" fill="url(#turfTop)"/>
+            <g id="park-stream" class="park-stage"><path d="M126,90 Q144,94 152,104 L152,144 Q146,148 140,142 L140,106 Q128,100 116,97 Z" fill="url(#lagoonWater)"/><line class="waterfall-line" x1="145" y1="103" x2="145" y2="142" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/><line class="waterfall-line" x1="149" y1="106" x2="149" y2="138" stroke="#E0F7FF" stroke-width="1.4" stroke-linecap="round"/><circle cx="143" cy="147" r="2.2" fill="#BCEEFF"/><circle cx="150" cy="150" r="1.6" fill="#FFFFFF"/></g>
+            <g id="park-tree" class="park-stage active"><path d="M64,92 Q67,70 63,52 L77,52 Q74,70 80,92 Z" fill="#6E4728"/><path d="M65,68 L46,56" stroke="#6E4728" stroke-width="4" stroke-linecap="round"/><path d="M75,65 L94,53" stroke="#6E4728" stroke-width="4" stroke-linecap="round"/><circle cx="48" cy="46" r="21" fill="url(#oakLeaf)"/><circle cx="92" cy="45" r="20" fill="url(#oakLeaf)"/><circle cx="70" cy="28" r="25" fill="url(#oakLeaf)"/><rect x="61" y="42" width="20" height="16" rx="2.5" fill="#F3D399" stroke="#6E4728" stroke-width="1.4"/><polygon points="58,43 71,32 84,43" fill="#C45D3E"/><circle cx="71" cy="49" r="3.2" fill="#FFE98A" stroke="#6E4728" stroke-width="1"/><line x1="71" y1="32" x2="71" y2="23" stroke="#5A391E" stroke-width="1.5"/><polygon id="flagPolygon" points="71,23 80,25.5 71,28" fill="#52B765"/></g>
+            <g id="park-flowers" class="park-stage"><circle cx="32" cy="91" r="3" fill="#FFF08A"/><circle cx="42" cy="96" r="2.8" fill="#FF8C6B"/><circle cx="104" cy="95" r="3" fill="#FFF08A"/><g transform="translate(88, 76)"><ellipse cx="10" cy="14" rx="6" ry="4.5" fill="#E67332"/><circle cx="10" cy="8" r="5" fill="#F28544"/><polygon points="6,5 7,0 10,4" fill="#D95D24"/><polygon points="14,5 13,0 10,4" fill="#D95D24"/><circle cx="8.5" cy="7.5" r="0.9" fill="#1D3324"/><circle cx="11.5" cy="7.5" r="0.9" fill="#1D3324"/><path d="M15,14 Q21,11 19,16 Q16,17 15,14 Z" fill="#FFFDF8"/></g></g>
+            <g id="park-butterfly" class="park-stage butterfly-anim"><path d="M112,38 C106,32 102,37 108,41 C104,44 109,48 112,42 Z" fill="#FFE066"/><path d="M113,38 C119,32 123,37 117,41 C121,44 116,48 113,42 Z" fill="#F6AE2D"/></g>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Плашка миссии с ценностями -->
+    <section class="mission-banner">
+      <div class="mission-head">
+        <div class="mission-icon">🇰🇿</div>
+        <div class="mission-text">
+          <h3>Миссия «Адал Азамат»</h3>
+          <p>Работайте в команде честно: каждый вносит свой вклад. Пройдите все секторы и спасите экопарк вместе!</p>
+        </div>
+      </div>
+      <div class="values-map" id="valuesMap"></div>
+    </section>
+
+    <section class="card hud-bar">
+      <div class="hud-row">
+        <div class="resources">
+          <div class="res-pill res-water" id="waterPill"><span class="dot-indicator" style="background: var(--water);"></span> Вода: <span id="waterVal">0</span></div>
+          <div class="res-pill res-sun" id="sunPill"><span class="dot-indicator" style="background: var(--sun);"></span> Солнце: <span id="sunVal">0</span></div>
+        </div>
+        <div class="leaf-steps" id="leafSteps"></div>
+      </div>
+      <!-- Сквозные ценности -->
+      <div class="values-track" id="valuesTrack">
+        <div class="value-track-item honesty" id="vt-honesty">🕊️ Честность <span class="vt-label">(без подсказок)</span></div>
+        <div class="value-track-item diligence" id="vt-diligence">💪 Трудолюбие <span class="vt-label">(все поля)</span></div>
+        <div class="value-track-item cooperation" id="vt-cooperation">🤝 Сотрудничество <span class="vt-label">(отправка)</span></div>
+      </div>
+    </section>
+
+    <main>
+      <!-- ЗАДАНИЕ 1: Шлюз (Тест) -->
+      <article class="card task-card" id="card-1">
+        <div class="story-banner">
+          <svg viewBox="0 0 360 112" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="gorgeSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D7EFE9"/><stop offset="100%" stop-color="#F2FAF7"/></linearGradient>
+              <linearGradient id="stoneGate" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B9B96"/><stop offset="100%" stop-color="#5E6E6A"/></linearGradient>
+              <linearGradient id="riverAqua" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#48B5E0"/><stop offset="50%" stop-color="#7AD7F5"/><stop offset="100%" stop-color="#3598C7"/></linearGradient>
+            </defs>
+            <rect width="360" height="112" fill="url(#gorgeSky)"/>
+            <path d="M0,78 L26,34 L52,78 Z M34,78 L66,24 L98,78 Z M268,78 L296,28 L324,78 Z M308,78 L338,38 L360,78 Z" fill="#9BC9B8" opacity="0.65"/>
+            <path d="M132,102 L132,34 Q132,16 150,16 L250,16 Q268,16 268,34 L268,102 Z" fill="url(#stoneGate)"/>
+            <path d="M164,102 L164,54 Q200,34 236,54 L236,102 Z" fill="#29464B"/>
+            <path d="M166,66 Q200,58 234,66 L246,104 L154,104 Z" fill="url(#riverAqua)"/>
+            <path d="M178,72 Q192,84 186,100 M216,72 Q208,86 214,100" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <g><circle cx="166" cy="33" r="13" fill="#23423D" stroke="#E8C568" stroke-width="2"/><text x="166" y="37" text-anchor="middle" fill="#FFE680" font-size="11" font-weight="800" font-family="sans-serif">ab</text><circle cx="234" cy="33" r="13" fill="#23423D" stroke="#E8C568" stroke-width="2"/><text x="234" y="37" text-anchor="middle" fill="#FFE680" font-size="11" font-weight="800" font-family="sans-serif">ba</text><text x="200" y="36" text-anchor="middle" fill="#FFFDF8" font-size="13" font-weight="900">+</text></g>
+            <path d="M134,18 Q144,32 152,20 Q158,34 166,18" fill="#5DA862"/><path d="M234,18 Q244,32 252,20 Q258,30 266,18" fill="#4B8E4F"/>
+            <g class="beaver-anim" transform="translate(65, 48)"><ellipse cx="12" cy="40" rx="11" ry="6" fill="#6E472B" transform="rotate(-25 12 40)"/><ellipse cx="28" cy="36" rx="13" ry="15" fill="#9E6840"/><ellipse cx="31" cy="38" rx="8" ry="10" fill="#CFA17A"/><circle cx="29" cy="18" r="11" fill="#9E6840"/><rect x="33" y="22" width="3.5" height="4.5" rx="1" fill="#FFFFFF"/><rect x="37" y="22" width="3.5" height="4.5" rx="1" fill="#FFFFFF"/><circle cx="34" cy="15" r="2" fill="#1D3324"/><circle cx="34.7" cy="14.3" r="0.7" fill="#FFFFFF"/><path d="M18,13 Q29,2 40,13 Z" fill="#F6BE3D"/><rect x="16" y="12" width="27" height="3" rx="1.5" fill="#D99B1E"/></g>
+            <path d="M0,98 Q90,90 180,98 Q270,106 360,96 L360,112 L0,112 Z" fill="#3CA4D4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h2 class="sector-title">Сектор 1 • Код водного шлюза</h2>
+          <p class="sector-text">Бобёр-инженер настраивает рунические диски плотины. <strong>a и b — цифры.</strong> Дано тождество:</p>
+          <div class="math-banner">0,(ab) + 0,(ba) = 1,(7)</div>
+          <p class="sector-text">Найдите сумму <strong>a + b</strong>:</p>
+          
+          <div class="controls-row" style="flex-direction: column; align-items: stretch; gap: 8px;">
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1.5px solid #cbd5e1;">
+              <input type="radio" name="task1" value="13" style="transform: scale(1.2);"> <span>А) 13</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1.5px solid #cbd5e1;">
+              <input type="radio" name="task1" value="14" style="transform: scale(1.2);"> <span>В) 14</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1.5px solid #cbd5e1;">
+              <input type="radio" name="task1" value="15" style="transform: scale(1.2);"> <span>С) 15</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1.5px solid #cbd5e1;">
+              <input type="radio" name="task1" value="16" style="transform: scale(1.2);"> <span>D) 16</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1.5px solid #cbd5e1;">
+              <input type="radio" name="task1" value="17" style="transform: scale(1.2);"> <span>Е) 17</span>
+            </label>
+          </div>
+          <div class="value-why" style="margin-top: 12px;">💡 Честность — это точность. Найдите верный ответ.</div>
+        </div>
+      </article>
+
+      <!-- ЗАДАНИЕ 2: Ветряк (Ввод) -->
+      <article class="card task-card" id="card-2">
+        <div class="story-banner">
+          <svg viewBox="0 0 360 112" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="sunnySky" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFF2CC"/><stop offset="100%" stop-color="#FDE1A3"/></linearGradient>
+              <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#E0E0E0"/><stop offset="100%" stop-color="#9E9E9E"/></linearGradient>
+            </defs>
+            <rect width="360" height="112" fill="url(#sunnySky)"/>
+            <polygon points="315,18 140,112 220,112" fill="#FFFDF5" opacity="0.45"/>
+            <circle cx="316" cy="22" r="24" fill="#FFE680" opacity="0.55"/><circle cx="316" cy="22" r="14" fill="#F6B93B"/>
+            <path d="M0,88 Q100,66 210,88 Q290,74 360,86 L360,112 L0,112 Z" fill="#77B869"/>
+            
+            <rect x="88" y="50" width="8" height="50" fill="url(#towerGrad)"/>
+            <rect x="85" y="90" width="14" height="10" fill="#757575" rx="2"/>
+            <g transform="translate(92, 50)">
+              <g class="spin-blades" style="transform-origin: 0px 0px;">
+                <path d="M0,0 L-4,-35 L4,-35 Z" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1"/>
+                <path d="M0,0 L30,-18 L32,-12 Z" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1"/>
+                <path d="M0,0 L-26,22 L-22,26 Z" fill="#F5F5F5" stroke="#BDBDBD" stroke-width="1"/>
+                <circle cx="0" cy="0" r="5" fill="#E0E0E0" stroke="#9E9E9E" stroke-width="2"/>
+              </g>
+            </g>
+
+            <g transform="translate(224, 34)">
+              <rect x="0" y="0" width="24" height="58" rx="12" fill="rgba(255,255,255,0.75)" stroke="#2E6347" stroke-width="2"/>
+              <rect x="3" y="36" width="18" height="19" rx="8" fill="#F6BE3D"/>
+              <line x1="5" y1="20" x2="19" y2="20" stroke="#5CA35E" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <text x="12" y="16" text-anchor="middle" fill="#1F4D32" font-size="8.5" font-weight="800">100%</text>
+            </g>
+            
+            <line x1="274" y1="36" x2="274" y2="88" stroke="#5E4229" stroke-width="2.5"/>
+            <g class="spin-anemometer" style="transform-origin: 274px 36px;">
+              <line x1="258" y1="36" x2="290" y2="36" stroke="#5E4229" stroke-width="2"/>
+              <circle cx="258" cy="36" r="4.5" fill="#E06D53"/>
+              <circle cx="290" cy="36" r="4.5" fill="#4FB3E8"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h2 class="sector-title">Сектор 2 • Ветряная метеостанция</h2>
+          <p class="sector-text">Ветрогенератор уже зарядил аккумулятор на <strong>0,(3)</strong>. Какую долю <strong>0,(m)</strong> нужно добавить до полной единицы? <strong>m — цифра.</strong> Найдите значение <strong>m</strong>, если:</p>
+          <div class="math-banner">0,(3) + 0,(m) = 1</div>
+          <div class="controls-row">
+            <input type="text" class="answer-box" id="in-2" placeholder="m = ?" inputmode="numeric" oninput="updateProgress()">
+            <button type="button" class="btn-hint" id="btn-hint-2" onclick="toggleHint(2)">💡 Подсказка</button>
+          </div>
+          <div class="hint-box" id="hint-2">
+            Представьте обе периодические дроби со знаменателем 9: 3/9 + m/9 = 1.
+            <div class="hint-warning">⚠️ Внимание: если вы используете подсказку, за это задание будет начислено на 1 балл меньше.</div>
+          </div>
+          <div class="value-why" style="margin-top: 8px;">💡 Ответственность — это точность: нельзя сказать «примерно», нужно знать долю точно.</div>
+        </div>
+      </article>
+
+      <!-- ЗАДАНИЕ 3: Сравнение -->
+      <article class="card task-card" id="card-3">
+        <div class="story-banner">
+          <svg viewBox="0 0 360 112" preserveAspectRatio="xMidYMid meet">
+            <defs><linearGradient id="gladeBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E1F3E8"/><stop offset="100%" stop-color="#C3E5CE"/></linearGradient></defs>
+            <rect width="360" height="112" fill="url(#gladeBg)"/><path d="M0,92 Q180,76 360,92 L360,112 L0,112 Z" fill="#63A864"/>
+            <circle class="firefly" cx="44" cy="28" r="3" fill="#FFE66D"/><circle class="firefly" cx="312" cy="24" r="3.5" fill="#FFE66D" style="animation-delay: 0.8s"/><circle class="firefly" cx="278" cy="46" r="2.5" fill="#FFF7AD" style="animation-delay: 1.4s"/>
+            <rect x="176" y="34" width="8" height="64" rx="4" fill="#7D5333"/><line x1="84" y1="42" x2="276" y2="36" stroke="#C8963E" stroke-width="4" stroke-linecap="round"/>
+            <line x1="88" y1="42" x2="70" y2="74" stroke="#8C6239" stroke-width="1.5"/><line x1="88" y1="42" x2="106" y2="74" stroke="#8C6239" stroke-width="1.5"/><path d="M62,74 Q88,90 114,74 Z" fill="#E6A93B" stroke="#9C6B19" stroke-width="1.5"/><circle cx="82" cy="70" r="5" fill="#FFE066"/><ellipse cx="94" cy="69" rx="4.5" ry="6" fill="#A66A38"/>
+            <line x1="272" y1="36" x2="254" y2="68" stroke="#8C6239" stroke-width="1.5"/><line x1="272" y1="36" x2="290" y2="68" stroke="#8C6239" stroke-width="1.5"/><path d="M246,68 Q272,84 298,68 Z" fill="#E6A93B" stroke="#9C6B19" stroke-width="1.5"/><polygon points="266,66 272,53 278,66" fill="#4FB3E8"/><polygon points="276,66 281,57 286,66" fill="#84E3C8"/>
+            <g transform="translate(158, 12)"><ellipse cx="22" cy="24" rx="14" ry="16" fill="#7A5638"/><ellipse cx="22" cy="27" rx="9" ry="11" fill="#F2DEC4"/><polygon points="10,12 13,4 18,11" fill="#5E4028"/><polygon points="34,12 31,4 26,11" fill="#5E4028"/><circle cx="17" cy="17" r="5.5" fill="#FFFDF8" stroke="#D99B1E" stroke-width="1.6"/><circle cx="27" cy="17" r="5.5" fill="#FFFDF8" stroke="#D99B1E" stroke-width="1.6"/><line x1="22.5" y1="17" x2="21.5" y2="17" stroke="#D99B1E" stroke-width="1.6"/><circle cx="17" cy="17" r="2.2" fill="#1D3324"/><circle cx="27" cy="17" r="2.2" fill="#1D3324"/><polygon points="20,21 24,21 22,25" fill="#F2A922"/></g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h2 class="sector-title">Сектор 3 • Экологические весы мудрой совы</h2>
+          <p class="sector-text">Распределите три пробы между участниками группы: переведите периодические дроби в обыкновенные и выберите верный знак (&lt;, = или &gt;) в каждой строке:</p>
+          
+          <div class="compare-list" id="compareList">
+            <div class="compare-row" id="cmp-row-0">
+              <div class="cmp-expr">0,(55)</div>
+              <div class="sign-picker">
+                <button type="button" class="sign-btn" onclick="pickSign(0, '<', this)">&lt;</button>
+                <button type="button" class="sign-btn" onclick="pickSign(0, '=', this)">=</button>
+                <button type="button" class="sign-btn" onclick="pickSign(0, '>', this)">&gt;</button>
+              </div>
+              <div class="cmp-expr">0,55</div>
+            </div>
+            <div class="compare-row" id="cmp-row-1">
+              <div class="cmp-expr">0,3(7)</div>
+              <div class="sign-picker">
+                <button type="button" class="sign-btn" onclick="pickSign(1, '<', this)">&lt;</button>
+                <button type="button" class="sign-btn" onclick="pickSign(1, '=', this)">=</button>
+                <button type="button" class="sign-btn" onclick="pickSign(1, '>', this)">&gt;</button>
+              </div>
+              <div class="cmp-expr">0,37</div>
+            </div>
+            <div class="compare-row" id="cmp-row-2">
+              <div class="cmp-expr">0,(4)</div>
+              <div class="sign-picker">
+                <button type="button" class="sign-btn" onclick="pickSign(2, '<', this)">&lt;</button>
+                <button type="button" class="sign-btn" onclick="pickSign(2, '=', this)">=</button>
+                <button type="button" class="sign-btn" onclick="pickSign(2, '>', this)">&gt;</button>
+              </div>
+              <div class="cmp-expr"><span class="frac"><span class="num">4</span><span class="den">9</span></span></div>
+            </div>
+          </div>
+          <div class="controls-row" style="margin-top: 10px;">
+            <button type="button" class="btn-hint" id="btn-hint-3" onclick="toggleHint(3)">💡 Подсказка</button>
+          </div>
+          <div class="hint-box" id="hint-3">
+            1) 0,(55) = 55/99 = 5/9, а 0,55 = 55/100 = 11/20.<br>
+            2) 0,3(7) = 34/90 = 17/45, а 0,37 = 37/100.<br>
+            3) 0,(4) = 4/9.
+            <div class="hint-warning">⚠️ Внимание: если вы используете подсказку, за это задание будет начислено на 1 балл меньше.</div>
+          </div>
+          <div class="value-why" style="margin-top: 8px;">💡 Сотрудничество и уважение: обсудите и придите к единому мнению.</div>
+        </div>
+      </article>
+    </main>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitResults()">Отправить результаты учителю</button>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxz2jpa6HP62UyOR4JsnRwNHeu22vBZ7qoii-bqSxOl2hG1vb_42sfmke7-Dy4n12YsMw/exec';
+
+    let userSigns = [null, null, null];
+    const usedHints = new Set();
+
+    function initHUD() {
+      document.getElementById("leafSteps").innerHTML = [1, 2, 3].map(n => `<div class="leaf-step" id="step-${n}">${n}</div>`).join("");
+    }
+
+    function toggleHint(id) {
+      const box = document.getElementById(`hint-${id}`);
+      const btn = document.getElementById(`btn-hint-${id}`);
+      box.classList.toggle("open");
+      if (box.classList.contains("open")) {
+        usedHints.add(id);
+        if (btn) btn.classList.add("used");
+      }
+    }
+
+    function pickSign(rowIdx, sign, btn) {
+      userSigns[rowIdx] = sign;
+      const row = document.getElementById(`cmp-row-${rowIdx}`);
+      row.classList.add("chosen");
+      row.querySelectorAll(".sign-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      updateProgress();
+    }
+
+    let prevCount = 0;
+
+    function updateProgress() {
+      let count = 0;
+      // Задание 1 (тест)
+      if (document.querySelector('input[name="task1"]:checked')) {
+        count++;
+        document.getElementById("step-1").classList.add("done");
+        document.getElementById("card-1").classList.add("solved");
+      } else {
+        document.getElementById("step-1").classList.remove("done");
+        document.getElementById("card-1").classList.remove("solved");
+      }
+
+      // Задание 2 (ввод)
+      const val2 = document.getElementById("in-2").value.trim();
+      if (val2) {
+        count++;
+        document.getElementById("step-2").classList.add("done");
+        document.getElementById("card-2").classList.add("solved");
+      } else {
+        document.getElementById("step-2").classList.remove("done");
+        document.getElementById("card-2").classList.remove("solved");
+      }
+
+      // Задание 3 (сравнение)
+      if (userSigns.every(s => s !== null)) {
+        count++;
+        document.getElementById("step-3").classList.add("done");
+        document.getElementById("card-3").classList.add("solved");
+      } else {
+        document.getElementById("step-3").classList.remove("done");
+        document.getElementById("card-3").classList.remove("solved");
+      }
+
+      document.getElementById("waterVal").textContent = Math.min(count, 3);
+      document.getElementById("sunVal").textContent = Math.min(count, 3);
+
+      if (count !== prevCount) {
+        const wPill = document.getElementById("waterPill");
+        const sPill = document.getElementById("sunPill");
+        wPill.classList.add("pulse");
+        sPill.classList.add("pulse");
+        setTimeout(() => {
+          wPill.classList.remove("pulse");
+          sPill.classList.remove("pulse");
+        }, 280);
+        prevCount = count;
+      }
+
+      document.getElementById("park-stream").classList.toggle("active", count >= 1);
+      document.getElementById("park-sun").classList.toggle("active", count >= 2);
+      document.getElementById("park-flowers").classList.toggle("active", count >= 3);
+      document.getElementById("park-butterfly").classList.toggle("active", count >= 3);
+    }
+
+    function normalize(str) {
+      return str.trim().replace(/\s+/g, "").toLowerCase();
+    }
+
+    function submitResults() {
+      const cap = document.getElementById('captainName').value.trim();
+      const mem = document.getElementById('teamMembers').value.trim();
+      
+      if (!cap) return alert('Пожалуйста, напишите имя капитана группы!');
+
+      let grpScore = 0;
+
+      // Проверка 1 задания (a+b=16)
+      const task1 = document.querySelector('input[name="task1"]:checked');
+      if (task1 && task1.value === "16") {
+        grpScore += 3;
+      }
+
+      // Проверка 2 задания (m=6)
+      const ans2 = normalize(document.getElementById('in-2').value);
+      if (ans2 === "6" || ans2 === "m=6") {
+        if (usedHints.has(2)) grpScore += 2;
+        else grpScore += 3;
+      }
+
+      // Проверка 3 задания (=, >, =)
+      const correctSigns = ["=", ">", "="];
+      let signsOk = true;
+      userSigns.forEach((s, i) => {
+        if (s !== correctSigns[i]) signsOk = false;
+      });
+      if (signsOk) {
+        if (usedHints.has(3)) grpScore += 2;
+        else grpScore += 3;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = 'Отправка...';
+
+      const data = {
+        name: "6Б | Группа (капитан: " + cap + ")" + (mem ? " + " + mem : ""),
+        indScore: 0,
+        pairScore: 0,
+        grpScore: grpScore
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        document.querySelector('main').innerHTML = `
+          <div class="card" style="text-align:center; padding: 40px;">
+            <h1 style="color: var(--moss); font-size: 2rem;">Миссия выполнена!</h1>
+            <p>Результаты вашей команды (капитан: ${cap}) отправлены учителю.</p>
+            <p style="font-size: 3rem; margin-top: 20px;">🌳🦉✨</p>
+          </div>
+        `;
+        btn.style.display = 'none';
+      })
+      .catch(() => {
+        alert('Ошибка сети. Проверьте интернет.');
+        btn.disabled = false;
+        btn.innerText = 'Отправить результаты учителю';
+      });
+    }
+
+    // Добавляем слушатель на 1 задание (тест)
+    document.querySelectorAll('input[name="task1"]').forEach(radio => {
+      radio.addEventListener('change', updateProgress);
+    });
+
+    initHUD();
+  </script>
+</body>
+</html>
